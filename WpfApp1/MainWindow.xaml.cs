@@ -24,37 +24,46 @@ namespace WpfApp1
     {
         public MainWindow()
         {
-
             InitializeComponent();
+            getButtons(buttons, fileInfos);
+            files.ItemsSource = buttons;
 
-            foreach (string dirPath in Directory.GetFiles("D:\\motuzda16", "*.txt",SearchOption.AllDirectories))
+        }
+
+        private List<Button> buttons = new List<Button>();
+        private List<string> fileInfos = new List<string>();
+        private DirectoryInfo di = new DirectoryInfo(@"C:\Users\David Motúz\source\repos");
+
+        private List<Button> getButtons(List<Button> items, List<string> files)
+        {
+            foreach (var fileInfo in di.GetFiles( "*.exe", SearchOption.AllDirectories))
             {
-                string[] s = dirPath.Split('\\');
-                Button newBtn = new Button();
-                newBtn.Click += Button_Click;
-                newBtn.MinHeight = 180;
-                newBtn.Width = 180;
-                newBtn.Content = s[s.Length - 1];
-                files.Items.Add(newBtn);
+              
+                if (!fileInfo.FullName.Contains("bin"))
+                {
+                    Button newBtn = new Button();
+                    newBtn.Click += Button_Click;
+                    newBtn.MinHeight = 180;
+                    newBtn.Width = 500;
+                    newBtn.Content = fileInfo.Name;
+                    
+                    items.Add(newBtn);
+                    files.Add(fileInfo.FullName);
+                }              
             }
-
+            return items;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Process proc = new Process();
             Button btn = (Button)sender;
-            string keyword = btn.Content.ToString();
-            foreach (string dirPath in Directory.GetFiles("D:\\motuzda16", "*.txt", SearchOption.AllDirectories))
-            {
-                string[] s = dirPath.Split('\\');
-                if (s[s.Length - 1] == keyword)
-                {
-                    proc.StartInfo = new ProcessStartInfo(dirPath);
-                    proc.Start();
-                }
-            }
 
+            
+
+            proc.StartInfo = new ProcessStartInfo(btn.Content.ToString());
+            proc.Start();
+        
         }
     }
 }

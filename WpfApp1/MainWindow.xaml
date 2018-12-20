@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920">
+        Title="MainWindow" Height="400" Width="800">
     <Grid>
 
-        <ListView HorizontalAlignment="Center" Height="1029" Margin="0,10,0,0" VerticalAlignment="Top" Width="1902" x:Name="files">
+        <ListView HorizontalAlignment="Center" Height="351" Margin="0,10,10.333,0" VerticalAlignment="Top" Width="783" x:Name="files">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top"></StackPanel>
